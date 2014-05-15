@@ -10,6 +10,16 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\EndlessNight\ExternalLibs.h" />
+    <ClInclude Include="..\..\EndlessNight\GameObject.h" />
+    <ClInclude Include="..\..\EndlessNight\Textures.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\EndlessNight\GameObject.cpp" />
+    <ClCompile Include="..\..\EndlessNight\main.cpp" />
+    <ClCompile Include="..\..\EndlessNight\Textures.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DD1BC8A7-5833-4618-B84F-10034C57A7D0}</ProjectGuid>
     <RootNamespace>EndlessNight</RootNamespace>
@@ -75,16 +85,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Textures.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ExternalLibs.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Textures.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
