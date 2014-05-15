@@ -44,6 +44,10 @@ Dot::Dot()
 	mPosX = 0;
 	mPosY = 0;
 
+	//Initialize the target
+	targetX = 0;
+	targetY = 0;
+
 	//Initialize the velocity
 	mVelX = 0;
 	mVelY = 0;
@@ -66,6 +70,15 @@ Dot::~Dot()
 
 void Dot::handleEvent(SDL_Event& e)
 {
+	//If mouse event happened 
+	if (e.type == SDL_MOUSEMOTION /*|| e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP*/) {
+		//Get mouse position
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		targetX = x;
+		targetY = y;
+	}
+
 	//If a key was pressed
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 	{
@@ -117,9 +130,11 @@ void Dot::move()
 
 void Dot::render(SDL_Renderer* gRenderer)
 {
+	int row = 0;
+
 	SDL_Rect gSpriteClip;
 	gSpriteClip.x = 4;
-	gSpriteClip.y = 16;
+	gSpriteClip.y = row*58 + 16;
 	gSpriteClip.w = 40;
 	gSpriteClip.h = 57;
 
@@ -127,7 +142,7 @@ void Dot::render(SDL_Renderer* gRenderer)
 	TextureLoader::getInstance()->gDotTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip);
 
 	//Show particles on top of dot
-	renderParticles(gRenderer);
+	// renderParticles(gRenderer);
 }
 
 void Dot::renderParticles(SDL_Renderer * gRenderer)

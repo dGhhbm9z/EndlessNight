@@ -132,7 +132,7 @@ int main(int argc, char* args[])
 				dot.move();
 
 				//Clear screen
-				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x0, 0x0, 0xFF);
 				SDL_RenderClear(gRenderer);
 
 				//Render objects
