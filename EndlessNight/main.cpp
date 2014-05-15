@@ -155,11 +155,8 @@ int main(int argc, char* args[])
 				dot.move();
 
 				//Calculate and correct fps
-				float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
-				if (avgFPS > 2000000)
-				{
-					avgFPS = 0;
-				}
+				static float avgFPS = 0;
+				avgFPS = 0.5f*avgFPS + 0.5f*(countedFrames / (fpsTimer.getTicks() / 1000.f));
 
 				//Set text to be rendered
 				timeText.str("");
