@@ -17,7 +17,7 @@ LTexture::~LTexture()
 	free();
 }
 
-bool LTexture::loadFromFile(std::string path, SDL_Renderer* gRenderer)
+bool LTexture::loadFromFile(std::string path, SDL_Renderer* gRenderer, Uint8 r, Uint8 g, Uint8 b)
 {
 	//Get rid of preexisting texture
 	free();
@@ -34,7 +34,7 @@ bool LTexture::loadFromFile(std::string path, SDL_Renderer* gRenderer)
 	else
 	{
 		//Color key image
-		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, r, g, b));
 
 		//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
@@ -182,7 +182,7 @@ bool TextureLoader::loadMedia(SDL_Renderer *gRenderer)
 	bool success = true;
 
 	//Load dot texture
-	if (!gDotTexture.loadFromFile("38_particle_engines/dot.bmp", gRenderer))
+	if (!gDotTexture.loadFromFile("Resources/havoc.bmp", gRenderer, 32, 200, 248))
 	{
 		printf("Failed to load dot texture!\n");
 		success = false;

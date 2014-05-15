@@ -14,7 +14,7 @@ public:
 	~LTexture();
 
 	//Loads image at specified path
-	bool loadFromFile(std::string path, SDL_Renderer* gRenderer);
+	bool loadFromFile(std::string path, SDL_Renderer* gRenderer, Uint8 r=0x0, Uint8 g=0xff, Uint8 b=0xff);
 
 #ifdef _SDL_TTF_H
 	//Creates image from font string

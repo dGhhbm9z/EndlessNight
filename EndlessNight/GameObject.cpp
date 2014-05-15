@@ -3,8 +3,8 @@
 Particle::Particle(int x, int y)
 {
 	//Set offsets
-	mPosX = x - 5 + (rand() % 25);
-	mPosY = y - 5 + (rand() % 25);
+	mPosX = x - 5 + (rand() % 40);
+	mPosY = y - 5 + (rand() % 57);
 
 	//Initialize animation
 	mFrame = rand() % 5;
@@ -117,8 +117,14 @@ void Dot::move()
 
 void Dot::render(SDL_Renderer* gRenderer)
 {
+	SDL_Rect gSpriteClip;
+	gSpriteClip.x = 4;
+	gSpriteClip.y = 16;
+	gSpriteClip.w = 40;
+	gSpriteClip.h = 57;
+
 	//Show the dot
-	TextureLoader::getInstance()->gDotTexture.render(gRenderer, mPosX, mPosY);
+	TextureLoader::getInstance()->gDotTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip);
 
 	//Show particles on top of dot
 	renderParticles(gRenderer);

@@ -147,5 +147,8 @@ int main(int argc, char* args[])
 	//Free resources and close SDL
 	close();
 
+	int i;
+	std::cin >> i;
+
 	return 0;
 }
