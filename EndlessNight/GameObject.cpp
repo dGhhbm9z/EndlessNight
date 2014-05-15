@@ -1,4 +1,7 @@
 #include "GameObject.h"
+#include <math.h>
+
+const double PI = 3.14159265;
 
 Particle::Particle(int x, int y)
 {
@@ -130,7 +133,9 @@ void Dot::move()
 
 void Dot::render(SDL_Renderer* gRenderer)
 {
-	int row = 0;
+	int row = 9 * (atan((targetY - mPosY) / (float)abs(mPosX - targetX)) + PI / 2.0) / PI;
+	row = row > 0 ? row : 0;
+	row = row < 9 ? row : 8;
 
 	SDL_Rect gSpriteClip;
 	gSpriteClip.x = 4;
@@ -138,8 +143,10 @@ void Dot::render(SDL_Renderer* gRenderer)
 	gSpriteClip.w = 40;
 	gSpriteClip.h = 57;
 
+	const SDL_RendererFlip flip = (mPosX > targetX) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+
 	//Show the dot
-	TextureLoader::getInstance()->gDotTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip);
+	TextureLoader::getInstance()->gDotTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip, 0.0, nullptr, flip);
 
 	//Show particles on top of dot
 	// renderParticles(gRenderer);
