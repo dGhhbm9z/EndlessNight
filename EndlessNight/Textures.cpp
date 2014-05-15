@@ -6,9 +6,15 @@
 LTexture::LTexture()
 {
 	//Initialize
-	mTexture = NULL;
+	mTexture = nullptr;
 	mWidth = 0;
 	mHeight = 0;
+
+	gFont = TTF_OpenFont("Resources/lazy.ttf", 18);
+	if (gFont == nullptr)
+	{
+		printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
+	}
 }
 
 LTexture::~LTexture()
@@ -58,11 +64,14 @@ bool LTexture::loadFromFile(std::string path, SDL_Renderer* gRenderer, Uint8 r, 
 	return mTexture != NULL;
 }
 
-#ifdef _SDL_TTF_H
-bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
+bool LTexture::loadFromRenderedText(SDL_Renderer *gRenderer, std::string textureText, SDL_Color textColor)
 {
 	//Get rid of preexisting texture
 	free();
+
+	if (!gFont) {
+		return false;
+	}
 
 	//Render text surface
 	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
@@ -93,7 +102,6 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 	//Return success
 	return mTexture != NULL;
 }
-#endif
 
 void LTexture::free()
 {

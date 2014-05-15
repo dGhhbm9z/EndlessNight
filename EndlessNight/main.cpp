@@ -4,6 +4,9 @@ and may not be redistributed without written permission.*/
 #include "ExternalLibs.h"
 #include "GameObject.h"
 #include "Textures.h"
+#include "GameTimers.h"
+#include <string>
+#include <sstream>
 
 //Starts up SDL and creates window
 bool init();
@@ -67,6 +70,13 @@ bool init()
 					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 					success = false;
 				}
+
+				//Initialize SDL_ttf
+				if (TTF_Init() == -1)
+				{
+					printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+					success = false;
+				}
 			}
 		}
 	}
@@ -109,6 +119,19 @@ int main(int argc, char* args[])
 			//Event handler
 			SDL_Event e;
 
+			//Set text color as black
+			SDL_Color textColor = { 0xFF, 0xFF, 0xFF, 255 };
+
+			//The frames per second timer
+			LTimer fpsTimer;
+
+			//In memory text stream
+			std::stringstream timeText;
+
+			//Start counting frames per second
+			int countedFrames = 0;
+			fpsTimer.start();
+
 			//The dot that will be moving around on the screen
 			Dot dot;
 
@@ -131,15 +154,36 @@ int main(int argc, char* args[])
 				//Move the dot
 				dot.move();
 
+				//Calculate and correct fps
+				float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+				if (avgFPS > 2000000)
+				{
+					avgFPS = 0;
+				}
+
+				//Set text to be rendered
+				timeText.str("");
+				timeText << "Average Frames Per Second " << avgFPS;
+
+				//Render text
+				if (!TextureLoader::getInstance()->gFPSTextTexture.loadFromRenderedText(gRenderer, timeText.str().c_str(), textColor))
+				{
+					printf("Unable to render FPS texture!\n");
+				}
+
 				//Clear screen
-				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x0, 0x0, 0xFF);
+				SDL_SetRenderDrawColor(gRenderer, 0x0, 0x0, 0x0, 0xFF);
 				SDL_RenderClear(gRenderer);
 
 				//Render objects
 				dot.render(gRenderer);
 
+				// Render fps
+				TextureLoader::getInstance()->gFPSTextTexture.render(gRenderer, 0, (SCREEN_HEIGHT - TextureLoader::getInstance()->gFPSTextTexture.getHeight()));
+
 				//Update screen
 				SDL_RenderPresent(gRenderer);
+				++countedFrames;
 			}
 		}
 	}

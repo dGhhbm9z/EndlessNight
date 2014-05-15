@@ -13,10 +13,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\EndlessNight\ExternalLibs.h" />
     <ClInclude Include="..\..\EndlessNight\GameObject.h" />
+    <ClInclude Include="..\..\EndlessNight\GameTimers.h" />
     <ClInclude Include="..\..\EndlessNight\Textures.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\EndlessNight\GameObject.cpp" />
+    <ClCompile Include="..\..\EndlessNight\GameTimers.cpp" />
     <ClCompile Include="..\..\EndlessNight\main.cpp" />
     <ClCompile Include="..\..\EndlessNight\Textures.cpp" />
   </ItemGroup>
@@ -49,8 +51,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2_image-2.0.0\include;C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2_image-2.0.0\lib\x86;C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2_ttf-2.0.12\include;C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2_image-2.0.0\include;C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2_ttf-2.0.12\lib\x86;C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2_image-2.0.0\lib\x86;C:\Users\_dot_\Documents\Visual Studio 2013\Projects\EndlessNight\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -64,7 +66,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalOptions>/NODEFAULTLIB:msvcrt.lib %(AdditionalOptions)</AdditionalOptions>
       <ForceFileOutput>
