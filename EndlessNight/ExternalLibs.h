@@ -1,6 +1,12 @@
 //Using SDL, SDL_image, standard IO, and strings
-#include <SDL.h>
-#include <SDL_image.h>
+#ifdef __APPLE__
+    #include <SDL2/SDL.h>
+    #include <SDL2_image/SDL_image.h>
+#else
+    #include <SDL2/SDL.h>
+    #include <SDL2_image/SDL_image.h>
+#endif
+
 #include <stdio.h>
 #include <string>
 #include <iostream>
