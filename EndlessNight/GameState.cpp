@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include <algorithm>
 
 GameState *GameState::instance = nullptr;
 
@@ -13,8 +14,6 @@ GameState *GameState::getInstance()
 
 GameState::GameState() : textColor({ 0xFF, 0xFF, 0xFF, 0xFF })
 {
-	playerAmmo.reserve(100);
-	enemies.reserve(30);
 	fpsTimer.start();
 }
 
@@ -33,12 +32,36 @@ void GameState::move()
 {
 	//Move the dot
 	dot.move();
+
+	// render ammo
+	for (auto ammo = playerAmmo.begin(); ammo != playerAmmo.end(); ammo++) {
+		(*ammo)->move();
+	}
+
+	playerAmmo.erase(
+			std::remove_if(
+				playerAmmo.begin(),
+				playerAmmo.end(),
+				[](Dot *d) {
+					return d->mPosX > SCREEN_WIDTH || d->mPosX > SCREEN_WIDTH 
+						|| d->mPosX < 0 || d->mPosX < 0;
+				}
+			),
+			playerAmmo.end()
+		);
+
+
 }
 
 void GameState::render(SDL_Renderer* gRenderer)
 {
 	//Render objects
 	dot.render(gRenderer);
+
+	// render ammo
+	for (auto ammo = playerAmmo.begin(); ammo != playerAmmo.end(); ammo++) {
+		(*ammo)->render(gRenderer);
+	}
 }
 
 void GameState::renderFPS(SDL_Renderer* gRenderer)

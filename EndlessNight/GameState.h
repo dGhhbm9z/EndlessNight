@@ -3,7 +3,7 @@
 
 #include "ExternalLibs.h"
 #include "GameObject.h"
-#include <vector>
+#include <list>
 #include <string>
 #include <sstream>
 
@@ -24,15 +24,15 @@ public:
 
 	void renderFPS(SDL_Renderer* gRenderer);
 
-private:
 	//--------------------------------------------------------------
 	//The dot that will be moving around on the screen
 	Dot dot;
 
 	//player ammo
-	std::vector<Dot *> playerAmmo;
-	std::vector<Dot *> enemies;
+	std::list<Dot *> playerAmmo;
+	std::list<Dot *> enemies;
 
+private:
 	//--------------------------------------------------------------
 	//fps stuff
 	//Set text color as black

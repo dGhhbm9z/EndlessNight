@@ -36,7 +36,7 @@ class Dot
 {
 public:
 	//Maximum axis velocity of the dot
-	static const int DOT_VEL = 10;
+	static const int DOT_VEL = 6;
 
 	//Initializes the variables and allocates particles
 	Dot();
@@ -53,6 +53,9 @@ public:
 	//Shows the dot on the screen
 	virtual void render(SDL_Renderer* gRenderer);
 
+	//The X and Y offsets of the dot
+	int mPosX, mPosY;
+
 protected:
 	//The dimensions of the dot
 	const int DOT_WIDTH = 40;
@@ -64,14 +67,14 @@ protected:
 	//Shows the particles
 	void renderParticles(SDL_Renderer * gRenderer);
 
-	//The X and Y offsets of the dot
-	int mPosX, mPosY;
 	int targetX, targetY;
 
-private:
 	//The velocity of the dot
 	int mVelX, mVelY;
 
+	bool isDead;
+
+private:
 	bool firePrimary;
 	float firePrimaryCoolDown;
 	Uint32 firePrimaryLastTick;
@@ -87,6 +90,8 @@ class Ammo : public Dot
 {
 public:
 	Ammo(int x, int y, int vel, float f);
+	//Moves the dot
+	virtual void move() override;
 	virtual void render(SDL_Renderer* gRenderer) override;
 
 private:

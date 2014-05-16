@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "GameState.h"
 #include <math.h>
 
 const double PI = 3.14159265;
@@ -43,6 +44,8 @@ bool Particle::isDead()
 
 Dot::Dot()
 {
+	isDead = false;
+
 	//Initialize the offsets
 	mPosX = 0;
 	mPosY = 0;
@@ -56,6 +59,7 @@ Dot::Dot()
 	mVelY = 0;
 
 	firePrimary = false;
+	firePrimaryCoolDown = 100;
 
 	//Initialize particles
 	for (int i = 0; i < TOTAL_PARTICLES; ++i)
@@ -143,12 +147,16 @@ void Dot::move()
 
 	//fire
 	const Uint32 toc = clock.getTicks();
-	if ( (toc - firePrimaryLastTick) > firePrimaryCoolDown) {
+	if (firePrimary && (toc - firePrimaryLastTick) > firePrimaryCoolDown) {
 		firePrimaryLastTick = toc;
 
 		//create new instance of ammo
-		Dot *ammo = new Dot();
+		const int x = mPosX + DOT_WIDTH;
+		const int y = mPosY + 26 - 7 - 3 + (rand() % 6);
+		Dot *ammo = new Ammo(x, y, DOT_VEL*1.2f, 0.0f);
+		GameState::getInstance()->playerAmmo.push_back(ammo);
 	}
+
 }
 
 void Dot::render(SDL_Renderer* gRenderer)
@@ -194,14 +202,39 @@ void Dot::renderParticles(SDL_Renderer * gRenderer)
 
 Ammo::Ammo(int x, int y, int vel, float angle)
 {
+	mPosX = x;
+	mPosY = y;
 
+	mVelX = vel;
+	mVelY = 0;
+}
+
+void Ammo::move()
+{
+	//Move the dot left or right
+	mPosX += mVelX;
+
+	//If the dot went too far to the left or right
+	if ((mPosX < 0) || (mPosX + DOT_WIDTH > SCREEN_WIDTH))
+	{
+		isDead = true;
+	}
+
+	//Move the dot up or down
+	mPosY += mVelY;
+
+	//If the dot went too far up or down
+	if ((mPosY < 0) || (mPosY + DOT_HEIGHT > SCREEN_HEIGHT))
+	{
+		isDead = true;
+	}
 }
 
 void Ammo::render(SDL_Renderer* gRenderer)
 {
 	SDL_Rect gSpriteClip;
 	gSpriteClip.x = 231;
-	gSpriteClip.y = 553;
+	gSpriteClip.y = 554;
 	gSpriteClip.w = 14;
 	gSpriteClip.h = 14;
 
@@ -209,5 +242,5 @@ void Ammo::render(SDL_Renderer* gRenderer)
 	TextureLoader::getInstance()->gDotTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip, 0.0, nullptr);
 
 	//Show particles on top of dot
-	renderParticles(gRenderer);
+	//renderParticles(gRenderer);
 }
