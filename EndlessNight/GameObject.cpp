@@ -151,9 +151,14 @@ void Dot::move()
 		firePrimaryLastTick = toc;
 
 		//create new instance of ammo
-		const int x = mPosX + DOT_WIDTH;
-		const int y = mPosY + 26 - 7 - 3 + (rand() % 6);
-		Dot *ammo = new Ammo(x, y, DOT_VEL*1.2f, 0.0f);
+		const int cx = round(mPosX + DOT_WIDTH/2.0 - 6);
+		const int cy = round(mPosY + DOT_HEIGHT/2.0 - 7);
+		const float angle = (targetX < cx)*PI + atan((targetY - cy) / (float)(targetX - cx));
+		const int x = round(cx + DOT_WIDTH / 2.0 * cos(angle));
+		const int y = round(cy + DOT_HEIGHT / 2.0 * sin(angle));
+		const float varX = rand() % 6 - 3;
+		const float varY = rand() % 6 - 3;
+		Dot *ammo = new Ammo(x+varX, y+varY, DOT_VEL*1.2f, angle);
 		GameState::getInstance()->playerAmmo.push_back(ammo);
 	}
 
@@ -161,7 +166,9 @@ void Dot::move()
 
 void Dot::render(SDL_Renderer* gRenderer)
 {
-	int row = 9 * (atan((targetY - mPosY) / (float)abs(mPosX - targetX)) + PI / 2.0) / PI;
+	const int cx = round(mPosX + DOT_WIDTH / 2.0 - 6);
+	const int cy = round(mPosY + DOT_HEIGHT / 2.0 - 7);
+	int row = 9 * (atan((targetY - cy) / (float)abs(cx - targetX)) + PI / 2.0) / PI;
 	row = row > 0 ? row : 0;
 	row = row < 9 ? row : 8;
 
@@ -205,8 +212,8 @@ Ammo::Ammo(int x, int y, int vel, float angle)
 	mPosX = x;
 	mPosY = y;
 
-	mVelX = vel;
-	mVelY = 0;
+	mVelX = round(vel*cos(angle));
+	mVelY = round(vel*sin(angle));
 }
 
 void Ammo::move()
