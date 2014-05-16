@@ -1,3 +1,6 @@
+#ifndef GameTimers_h
+#define GameTimers_h
+
 #include "ExternalLibs.h"
 
 //The application time based timer
@@ -31,3 +34,5 @@ private:
 	bool mPaused;
 	bool mStarted;
 };
+
+#endif

@@ -13,11 +13,13 @@
   <ItemGroup>
     <ClInclude Include="..\..\EndlessNight\ExternalLibs.h" />
     <ClInclude Include="..\..\EndlessNight\GameObject.h" />
+    <ClInclude Include="..\..\EndlessNight\GameState.h" />
     <ClInclude Include="..\..\EndlessNight\GameTimers.h" />
     <ClInclude Include="..\..\EndlessNight\Textures.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\EndlessNight\GameObject.cpp" />
+    <ClCompile Include="..\..\EndlessNight\GameState.cpp" />
     <ClCompile Include="..\..\EndlessNight\GameTimers.cpp" />
     <ClCompile Include="..\..\EndlessNight\main.cpp" />
     <ClCompile Include="..\..\EndlessNight\Textures.cpp" />

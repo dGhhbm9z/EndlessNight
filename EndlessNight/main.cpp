@@ -2,11 +2,11 @@
 and may not be redistributed without written permission.*/
 
 #include "ExternalLibs.h"
+#include "GameState.h"
 #include "GameObject.h"
 #include "Textures.h"
 #include "GameTimers.h"
-#include <string>
-#include <sstream>
+#include <vector>
 
 //Starts up SDL and creates window
 bool init();
@@ -119,22 +119,6 @@ int main(int argc, char* args[])
 			//Event handler
 			SDL_Event e;
 
-			//Set text color as black
-			SDL_Color textColor = { 0xFF, 0xFF, 0xFF, 255 };
-
-			//The frames per second timer
-			LTimer fpsTimer;
-
-			//In memory text stream
-			std::stringstream timeText;
-
-			//Start counting frames per second
-			int countedFrames = 0;
-			fpsTimer.start();
-
-			//The dot that will be moving around on the screen
-			Dot dot;
-
 			//While application is running
 			while (!quit)
 			{
@@ -147,40 +131,22 @@ int main(int argc, char* args[])
 						quit = true;
 					}
 
-					//Handle input for the dot
-					dot.handleEvent(e);
+					GameState::getInstance()->handleEvent(e);
 				}
 
-				//Move the dot
-				dot.move();
-
-				//Calculate and correct fps
-				static float avgFPS = 0;
-				avgFPS = 0.5f*avgFPS + 0.5f*(countedFrames / (fpsTimer.getTicks() / 1000.f));
-
-				//Set text to be rendered
-				timeText.str("");
-				timeText << "Average Frames Per Second " << avgFPS;
-
-				//Render text
-				if (!TextureLoader::getInstance()->gFPSTextTexture.loadFromRenderedText(gRenderer, timeText.str().c_str(), textColor))
-				{
-					printf("Unable to render FPS texture!\n");
-				}
+				GameState::getInstance()->move();
 
 				//Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0x0, 0x0, 0x0, 0xFF);
 				SDL_RenderClear(gRenderer);
 
-				//Render objects
-				dot.render(gRenderer);
+				GameState::getInstance()->render(gRenderer);
 
 				// Render fps
-				TextureLoader::getInstance()->gFPSTextTexture.render(gRenderer, 0, (SCREEN_HEIGHT - TextureLoader::getInstance()->gFPSTextTexture.getHeight()));
+				GameState::getInstance()->renderFPS(gRenderer);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);
-				++countedFrames;
 			}
 		}
 	}

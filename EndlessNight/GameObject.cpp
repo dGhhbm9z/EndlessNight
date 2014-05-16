@@ -55,11 +55,15 @@ Dot::Dot()
 	mVelX = 0;
 	mVelY = 0;
 
+	firePrimary = false;
+
 	//Initialize particles
 	for (int i = 0; i < TOTAL_PARTICLES; ++i)
 	{
 		particles[i] = new Particle(mPosX, mPosY);
 	}
+
+	clock.start();
 }
 
 Dot::~Dot()
@@ -74,12 +78,19 @@ Dot::~Dot()
 void Dot::handleEvent(SDL_Event& e)
 {
 	//If mouse event happened 
-	if (e.type == SDL_MOUSEMOTION /*|| e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP*/) {
+	if (e.type == SDL_MOUSEMOTION) {
 		//Get mouse position
 		int x, y;
 		SDL_GetMouseState(&x, &y);
 		targetX = x;
 		targetY = y;
+	}
+	
+	if (e.type == SDL_MOUSEBUTTONDOWN) {
+		firePrimary = true;
+	}
+	else if (e.type == SDL_MOUSEBUTTONUP) {
+		firePrimary = false;
 	}
 
 	//If a key was pressed
@@ -129,6 +140,15 @@ void Dot::move()
 		//Move back
 		mPosY -= mVelY;
 	}
+
+	//fire
+	const Uint32 toc = clock.getTicks();
+	if ( (toc - firePrimaryLastTick) > firePrimaryCoolDown) {
+		firePrimaryLastTick = toc;
+
+		//create new instance of ammo
+		Dot *ammo = new Dot();
+	}
 }
 
 void Dot::render(SDL_Renderer* gRenderer)
@@ -170,4 +190,24 @@ void Dot::renderParticles(SDL_Renderer * gRenderer)
 	{
 		particles[i]->render(gRenderer);
 	}
+}
+
+Ammo::Ammo(int x, int y, int vel, float angle)
+{
+
+}
+
+void Ammo::render(SDL_Renderer* gRenderer)
+{
+	SDL_Rect gSpriteClip;
+	gSpriteClip.x = 231;
+	gSpriteClip.y = 553;
+	gSpriteClip.w = 14;
+	gSpriteClip.h = 14;
+
+	//Show the dot
+	TextureLoader::getInstance()->gDotTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip, 0.0, nullptr);
+
+	//Show particles on top of dot
+	renderParticles(gRenderer);
 }

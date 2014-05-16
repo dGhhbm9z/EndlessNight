@@ -3,6 +3,7 @@
 
 #include "ExternalLibs.h"
 #include "Textures.h"
+#include "GameTimers.h"
 
 //Particle count
 const int TOTAL_PARTICLES = 20;
@@ -34,10 +35,6 @@ private:
 class Dot
 {
 public:
-	//The dimensions of the dot
-	static const int DOT_WIDTH = 40;
-	static const int DOT_HEIGHT = 57;
-
 	//Maximum axis velocity of the dot
 	static const int DOT_VEL = 10;
 
@@ -51,12 +48,16 @@ public:
 	void handleEvent(SDL_Event& e);
 
 	//Moves the dot
-	void move();
+	virtual void move();
 
 	//Shows the dot on the screen
-	void render(SDL_Renderer* gRenderer);
+	virtual void render(SDL_Renderer* gRenderer);
 
-private:
+protected:
+	//The dimensions of the dot
+	const int DOT_WIDTH = 40;
+	const int DOT_HEIGHT = 57;
+
 	//The particles
 	Particle* particles[TOTAL_PARTICLES];
 
@@ -67,8 +68,29 @@ private:
 	int mPosX, mPosY;
 	int targetX, targetY;
 
+private:
 	//The velocity of the dot
 	int mVelX, mVelY;
+
+	bool firePrimary;
+	float firePrimaryCoolDown;
+	Uint32 firePrimaryLastTick;
+
+	bool fireSecondary;
+	float fireSecondaryCoolDown;
+	Uint32 fireSecondaryLastTick;
+
+	LTimer clock;
+};
+
+class Ammo : public Dot
+{
+public:
+	Ammo(int x, int y, int vel, float f);
+	virtual void render(SDL_Renderer* gRenderer) override;
+
+private:
+	float angle;
 };
 
 #endif
