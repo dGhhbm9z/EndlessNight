@@ -98,4 +98,16 @@ private:
 	float angle;
 };
 
+class StarParticle : public Dot
+{
+public:
+	StarParticle(int x, int y, int vel, float angle);
+	//Moves the dot
+	virtual void move() override;
+	virtual void render(SDL_Renderer* gRenderer) override;
+
+private:
+	Uint8 alpha;
+};
+
 #endif

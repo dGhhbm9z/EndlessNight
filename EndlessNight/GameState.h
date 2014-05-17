@@ -28,9 +28,10 @@ public:
 	//The dot that will be moving around on the screen
 	Dot dot;
 
-	//player ammo
+	// collision lists
 	std::list<Dot *> playerAmmo;
 	std::list<Dot *> enemies;
+	std::list<Dot *> backgroundUnits;
 
 private:
 	//--------------------------------------------------------------
@@ -49,6 +50,11 @@ private:
 
 	//Calculate and correct fps
 	float avgFPS = 0;
+
+	//--------------------------------------------------------------
+	// utils
+	void fillBackgroundWithParticles();
+	void removeDead(std::list<Dot *> &l);
 
 	//--------------------------------------------------------------
 	// design

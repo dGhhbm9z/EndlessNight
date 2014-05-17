@@ -155,7 +155,7 @@ void Dot::move()
 		const int cy = round(mPosY + DOT_HEIGHT/2.0 - 7);
 		const float angle = (targetX < cx)*PI + atan((targetY - cy) / (float)(targetX - cx));
 		const int x = round(cx + DOT_WIDTH / 2.0 * cos(angle));
-		const int y = round(cy + DOT_HEIGHT / 2.0 * sin(angle));
+		const int y = round(cy + DOT_HEIGHT / 2.0 * sin(angle)) - 3;
 		const float varX = rand() % 6 - 3;
 		const float varY = rand() % 6 - 3;
 		Dot *ammo = new Ammo(x+varX, y+varY, DOT_VEL*1.2f, angle);
@@ -250,4 +250,46 @@ void Ammo::render(SDL_Renderer* gRenderer)
 
 	//Show particles on top of dot
 	//renderParticles(gRenderer);
+}
+
+StarParticle::StarParticle(int x, int y, int vel, float angle)
+{
+	mPosX = x;
+	mPosY = y;
+
+	mVelX = round(vel*cos(angle));
+	mVelY = round(vel*sin(angle));
+
+	alpha = rand() % 256;
+}
+
+void StarParticle::move()
+{
+	//Move the dot left or right
+	mPosX += mVelX;
+
+	//If the dot went too far to the left or right
+	if ((mPosX < 0) || (mPosX + DOT_WIDTH > SCREEN_WIDTH))
+	{
+		isDead = true;
+	}
+
+	//Move the dot up or down
+	mPosY += mVelY;
+
+	//If the dot went too far up or down
+	if ((mPosY < 0) || (mPosY + DOT_HEIGHT > SCREEN_HEIGHT))
+	{
+		isDead = true;
+	}
+}
+
+void StarParticle::render(SDL_Renderer* gRenderer)
+{
+	//Show the dot
+	TextureLoader::getInstance()->gSparkleTexture.setAlpha(alpha);
+	TextureLoader::getInstance()->gSparkleTexture.render(gRenderer, mPosX, mPosY);
+
+//	TextureLoader::getInstance()->gCoronaTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip, 0.0, nullptr);
+//	TextureLoader::getInstance()->gNovaTexture.render(gRenderer, mPosX, mPosY, &gSpriteClip, 0.0, nullptr);
 }

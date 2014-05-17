@@ -196,6 +196,24 @@ bool TextureLoader::loadMedia(SDL_Renderer *gRenderer)
 		success = false;
 	}
 
+	if (!gSparkleTexture.loadFromFile("Resources/sparkle.bmp", gRenderer, 32, 200, 248))
+	{
+		printf("Failed to load dot texture!\n");
+		success = false;
+	}
+
+	if (!gCoronaTexture.loadFromFile("Resources/corona.bmp", gRenderer, 32, 200, 248))
+	{
+		printf("Failed to load dot texture!\n");
+		success = false;
+	}
+
+	if (!gNovaTexture.loadFromFile("Resources/nova.bmp", gRenderer, 32, 200, 248))
+	{
+		printf("Failed to load dot texture!\n");
+		success = false;
+	}
+
 	//Load red texture
 	if (!gRedTexture.loadFromFile("38_particle_engines/red.bmp", gRenderer))
 	{

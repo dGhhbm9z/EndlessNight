@@ -6,7 +6,11 @@ GameState *GameState::instance = nullptr;
 GameState *GameState::getInstance()
 {
 	if (instance == nullptr) {
-		return instance = new GameState();
+		instance = new GameState();
+
+		instance->fillBackgroundWithParticles();
+
+		return instance;
 	}
 
 	return instance;
@@ -30,31 +34,33 @@ void GameState::handleEvent(SDL_Event& e)
 
 void GameState::move()
 {
+	//fill with stars in bg
+	fillBackgroundWithParticles();
+
+	// move bg
+	for (auto bgu = backgroundUnits.begin(); bgu != backgroundUnits.end(); bgu++) {
+		(*bgu)->move();
+	}
+
 	//Move the dot
 	dot.move();
 
-	// render ammo
+	// move ammo
 	for (auto ammo = playerAmmo.begin(); ammo != playerAmmo.end(); ammo++) {
 		(*ammo)->move();
 	}
 
-	playerAmmo.erase(
-			std::remove_if(
-				playerAmmo.begin(),
-				playerAmmo.end(),
-				[](Dot *d) {
-					return d->mPosX > SCREEN_WIDTH || d->mPosX > SCREEN_WIDTH 
-						|| d->mPosX < 0 || d->mPosX < 0;
-				}
-			),
-			playerAmmo.end()
-		);
-
-
+	removeDead(backgroundUnits);
+	removeDead(playerAmmo);
 }
 
 void GameState::render(SDL_Renderer* gRenderer)
 {
+	// render bg
+	for (auto bgu = backgroundUnits.begin(); bgu != backgroundUnits.end(); bgu++) {
+		(*bgu)->render(gRenderer);
+	}
+
 	//Render objects
 	dot.render(gRenderer);
 
@@ -81,4 +87,32 @@ void GameState::renderFPS(SDL_Renderer* gRenderer)
 	TextureLoader::getInstance()->gFPSTextTexture.render(gRenderer, 0, (SCREEN_HEIGHT - TextureLoader::getInstance()->gFPSTextTexture.getHeight()));
 
 	++countedFrames;
+}
+
+void GameState::fillBackgroundWithParticles()
+{
+	const int modX = (backgroundUnits.size() == 0) ? SCREEN_WIDTH : 20;
+
+	for (int i = backgroundUnits.size(); i < 100; i++) {
+		const int x = SCREEN_WIDTH - 20 + rand() % modX;
+		const int y = rand() % SCREEN_HEIGHT;
+		const int v = 12 + rand() % 5;
+		const float a = 0;
+		backgroundUnits.push_back(new StarParticle(x, y, -v, a));
+	}
+}
+
+void GameState::removeDead(std::list<Dot *> &l)
+{
+	l.erase(
+		std::remove_if(
+			l.begin(),
+			l.end(),
+			[](Dot *d) {
+				return d->mPosX > SCREEN_WIDTH || d->mPosX > SCREEN_WIDTH
+					|| d->mPosX < 0 || d->mPosX < 0;
+			}
+		),
+		l.end()
+	);
 }

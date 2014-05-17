@@ -64,6 +64,9 @@ public:
 	LTexture gBlueTexture;
 	LTexture gShimmerTexture;
 	LTexture gFPSTextTexture;
+	LTexture gSparkleTexture;
+	LTexture gCoronaTexture;
+	LTexture gNovaTexture;
 
 private:
 	static TextureLoader *instance;
