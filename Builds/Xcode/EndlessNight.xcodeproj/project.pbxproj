@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73217F2F1989B05000D56632 /* Resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 73217F2B1989AE1B00D56632 /* Resources */; };
+		73217F311989B07C00D56632 /* 38_particle_engines in CopyFiles */ = {isa = PBXBuildFile; fileRef = 73217F301989B07400D56632 /* 38_particle_engines */; };
+		738116D51989AA4A0035614E /* libSDL2_ttf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 738116D41989AA4A0035614E /* libSDL2_ttf.a */; };
+		738116DA1989AB7C0035614E /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738116D61989AB7C0035614E /* GameState.cpp */; };
+		738116DB1989AB7C0035614E /* GameTimers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738116D81989AB7C0035614E /* GameTimers.cpp */; };
 		73E3E82B19251A7E00528A4B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E3E82A19251A7E00528A4B /* SDL2.framework */; };
 		73E3E83219251B4F00528A4B /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E3E82D19251B4F00528A4B /* GameObject.cpp */; };
 		73E3E83319251B4F00528A4B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E3E82F19251B4F00528A4B /* main.cpp */; };
@@ -15,18 +20,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		73E3E813192519C600528A4B /* CopyFiles */ = {
+		73217F2E1989B04000D56632 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
+				73217F311989B07C00D56632 /* 38_particle_engines in CopyFiles */,
+				73217F2F1989B05000D56632 /* Resources in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		73217F2B1989AE1B00D56632 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources; path = ../../Resources; sourceTree = "<group>"; };
+		73217F301989B07400D56632 /* 38_particle_engines */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 38_particle_engines; path = ../../38_particle_engines; sourceTree = "<group>"; };
+		738116D41989AA4A0035614E /* libSDL2_ttf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_ttf.a; path = ../../../../../opt/local/lib/libSDL2_ttf.a; sourceTree = "<group>"; };
+		738116D61989AB7C0035614E /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameState.cpp; sourceTree = "<group>"; };
+		738116D71989AB7C0035614E /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
+		738116D81989AB7C0035614E /* GameTimers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameTimers.cpp; sourceTree = "<group>"; };
+		738116D91989AB7C0035614E /* GameTimers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTimers.h; sourceTree = "<group>"; };
 		73E3E815192519C600528A4B /* EndlessNight */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EndlessNight; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E3E82A19251A7E00528A4B /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		73E3E82C19251B4F00528A4B /* ExternalLibs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalLibs.h; sourceTree = "<group>"; };
@@ -43,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				738116D51989AA4A0035614E /* libSDL2_ttf.a in Frameworks */,
 				73E3E83619251BE000528A4B /* SDL2_image.framework in Frameworks */,
 				73E3E82B19251A7E00528A4B /* SDL2.framework in Frameworks */,
 			);
@@ -54,10 +69,13 @@
 		73E3E80C192519C600528A4B = {
 			isa = PBXGroup;
 			children = (
+				738116D41989AA4A0035614E /* libSDL2_ttf.a */,
 				73E3E83519251BE000528A4B /* SDL2_image.framework */,
 				73E3E82A19251A7E00528A4B /* SDL2.framework */,
 				73E3E817192519C600528A4B /* EndlessNight */,
 				73E3E816192519C600528A4B /* Products */,
+				73217F2B1989AE1B00D56632 /* Resources */,
+				73217F301989B07400D56632 /* 38_particle_engines */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +90,10 @@
 		73E3E817192519C600528A4B /* EndlessNight */ = {
 			isa = PBXGroup;
 			children = (
+				738116D61989AB7C0035614E /* GameState.cpp */,
+				738116D71989AB7C0035614E /* GameState.h */,
+				738116D81989AB7C0035614E /* GameTimers.cpp */,
+				738116D91989AB7C0035614E /* GameTimers.h */,
 				73E3E82C19251B4F00528A4B /* ExternalLibs.h */,
 				73E3E82D19251B4F00528A4B /* GameObject.cpp */,
 				73E3E82E19251B4F00528A4B /* GameObject.h */,
@@ -92,7 +114,7 @@
 			buildPhases = (
 				73E3E811192519C600528A4B /* Sources */,
 				73E3E812192519C600528A4B /* Frameworks */,
-				73E3E813192519C600528A4B /* CopyFiles */,
+				73217F2E1989B04000D56632 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -135,6 +157,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				73E3E83319251B4F00528A4B /* main.cpp in Sources */,
+				738116DA1989AB7C0035614E /* GameState.cpp in Sources */,
+				738116DB1989AB7C0035614E /* GameTimers.cpp in Sources */,
 				73E3E83419251B4F00528A4B /* Textures.cpp in Sources */,
 				73E3E83219251B4F00528A4B /* GameObject.cpp in Sources */,
 			);
@@ -220,6 +244,15 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -230,6 +263,15 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
